@@ -18,6 +18,19 @@ class UsersController < ApplicationController
     @title= "Sign up"
   end
   
+  def following
+    @title = "Following"
+    @user = User.find(params[:id])
+    @users = @user.following.paginate(:page => params[:page])
+    render 'show_follow'
+  end
+
+  def followers
+    @title = "Followers"
+    @user = User.find(params[:id])
+    @users = @user.followers.paginate(:page => params[:page])
+    render 'show_follow'
+  end
   
   def create
     @user = User.new(params[:user]) 
@@ -53,6 +66,7 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 end
+
   
   private
   
